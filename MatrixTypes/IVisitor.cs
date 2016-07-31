@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MatrixTypes
 {
-    public interface IMatrix<T>
+    public interface IVisitor<T>
     {
-        int Dimension { get; }
-        T this[int i, int j] { get; set; }
+        void Visit(AbstractMatrix<T> lhs, AbstractMatrix<T> rhs);
     }
 }

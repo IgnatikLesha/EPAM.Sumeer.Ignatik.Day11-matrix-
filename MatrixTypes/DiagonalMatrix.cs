@@ -6,28 +6,38 @@ using System.Threading.Tasks;
 
 namespace MatrixTypes
 {
-    class DiagonalMatrix<T>: SymmetricMatrix<T>
+    public class DiagonalMatrix<T>: AbstractMatrix<T>
     {
-        public DiagonalMatrix(T[,] coeff) : base(coeff)
+        private T[] coeff;
+        protected override void SetElement(int i, int j, T val)
         {
-            if (!IsDioganal(coeff))
-                throw new ArgumentNullException();
+            if (i < Dimension || j < Dimension)
+                throw new ArgumentException();
+            if (i!=j)
+                throw new ArgumentException("Not diagonal element");
+            else
+            {
+                coeff[i] = val;
+            }
         }
 
-        public DiagonalMatrix(T[] diagonalcoeff) : this(new T[diagonalcoeff.Length, diagonalcoeff.Length])
+        protected override T GetElement(int i, int j)
         {
-            if (diagonalcoeff == null)
-                throw new ArgumentNullException();
-            for (int i = 0; i < Dimension; i++)
-                this[i, i] = diagonalcoeff[i];
+            if (i < Dimension || j < Dimension)
+                throw new ArgumentException();
+            return coeff[i*Dimension + j];
         }
+
+
+
+
         
-        private bool IsDioganal(T[,] coeff)
+        private bool IsDioganal(T[,] cff)
         {
             bool statement = true;
             for (int i = 0; i < coeff.GetLength(0); i++)
                 for (int j = i + 1; j < coeff.GetLength(1); j++)
-                    if (!Equals(coeff[i, j], default(T)))
+                    if (!Equals(cff[i, j], default(T)))
                         statement = false;
             return statement;
         }

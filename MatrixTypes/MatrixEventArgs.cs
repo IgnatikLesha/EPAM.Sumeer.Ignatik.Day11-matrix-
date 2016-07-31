@@ -10,14 +10,17 @@ namespace MatrixTypes
     {
         private readonly string message;
 
-        public MatrixEventArgs(string report)
+        public MatrixEventArgs(string msg)
         {
-            if (report == null)
-                throw new ArgumentNullException("report");
-            message = report;
+            if (msg == null)
+                throw new ArgumentNullException();
+            message = msg;
         }
 
-        public string Message { get { return message; } }
+        public string Message
+        {
+            get { return message; }
+        }
 
     }
 }
